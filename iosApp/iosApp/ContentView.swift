@@ -2,28 +2,51 @@ import SwiftUI
 import Shared
 
 struct ContentView: View {
-    @State private var showContent = false
-    var body: some View {
-        VStack {
-            Button("Click me!") {
-                withAnimation {
-                    showContent = !showContent
-                }
-            }
+    
+    private let sharedPref = SharedModule().sharedPref
+    @EnvironmentObject private var nav: NavStack
 
-            if showContent {
-                VStack(spacing: 16) {
-                    Image(systemName: "swift")
-                        .font(.system(size: 200))
-                        .foregroundColor(.accentColor)
-                    Text("SwiftUI: \(Greeting().greet())")
+        
+    var body: some View {
+        
+        VStack {
+            Button("Splash Screen") {
+                withAnimation {
+                    nav.navigate(.onboard)
                 }
-                .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding()
+        .onAppear {
+            // Delay 5 seconds, then trigger navigation
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                let isAlreadyLoggedIn = sharedPref.getBoolean(key: isLoggedIn, defaultValue: false)
+                
+                if isAlreadyLoggedIn {
+                    nav.navigate(.home)
+                } else {
+                    nav.navigate(.onboard)
+                }
+//                
+            }
+            
+        }
     }
+    
+    
+    @ViewBuilder
+      func screen(for route: Route) -> some View {
+          switch route {
+//              case .splash: ContentView()
+              case .onboard: OnboardScreen()
+              case .login: LoginScreen()
+              case .signup: SignUpScreen()
+              case .home: HomeScreen()
+              case .profile(let id): ProfileScreen(userID: id)
+              case .settings: SettingsScreen()
+          }
+      }
 }
 
 struct ContentView_Previews: PreviewProvider {

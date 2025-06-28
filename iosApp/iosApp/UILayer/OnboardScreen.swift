@@ -11,15 +11,11 @@ import Shared
 
 struct OnboardScreen: View {
     
-  //  private let sharedPref = SharedPreference()
-
+    //  private let sharedPref = SharedPreference()
     
-    @State var willMoveToSignUpScreen = false
-    @State var willMoveToLogInScreen = false
-    
+    @EnvironmentObject private var navStack: NavStack
     
     var body : some View {
-    
         ZStack {
             ScrollView {
                 VStack{
@@ -111,7 +107,8 @@ struct OnboardScreen: View {
                     
                     
                     Button("Sign up with mail") {
-                        willMoveToSignUpScreen = true
+                        navStack.navigate(.signup)
+                        //                            path.append("SignUp")
                     }.frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
                         .background(Color(hex: "F3F6F6"))
@@ -126,10 +123,11 @@ struct OnboardScreen: View {
                             .padding(.trailing, 2)
                         
                         Button("Log in"){
-                            willMoveToLogInScreen = true
+                            navStack.navigate(.login)
+                            //                                path.append("LogIn")
                         }.foregroundColor(.white)
                             .font(.custom("Caros Bold", size: 16))
-                            
+                        
                     }.padding(.bottom, 40)
                 }
                 .frame(maxWidth: .infinity, maxHeight:.infinity, alignment: .leading)
@@ -145,12 +143,11 @@ struct OnboardScreen: View {
                     endPoint: .leading
                 )
             )
-//            .navigate(to: SignUpScreen(), when: $willMoveToSignUpScreen)
-//            .navigate(to: LoginScreen(), when: $willMoveToLogInScreen)
+            .toolbar(.hidden, for: .navigationBar)
     }
     
 }
 
 #Preview {
-    HomeScreen()
+    OnboardScreen()
 }

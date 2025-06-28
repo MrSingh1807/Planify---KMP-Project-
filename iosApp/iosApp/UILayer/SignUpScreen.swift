@@ -15,9 +15,8 @@ struct SignUpScreen: View {
     
     private let sharedPref = SharedModule().sharedPref
     
-    @Environment(\.dismiss) var dismiss
-    
     @StateObject private var viewModel = UserViewModel()
+    @EnvironmentObject private var navStack: NavStack
     
     
     @State var userName = ""
@@ -35,7 +34,7 @@ struct SignUpScreen: View {
             VStack(alignment: .leading) {
                 Button(action: {
                     print("Button tapped!")
-                    dismiss()
+                    navStack.popBackStack()
                 }) {
                     Image("back")
                         .resizable()
@@ -138,6 +137,7 @@ struct SignUpScreen: View {
                         
                         toastMessage = "Account Created Successfully"
                         showToast = true
+                        navStack.popBackStack()
                     }
                 })
                 .frame(maxWidth: .infinity)
@@ -156,9 +156,9 @@ struct SignUpScreen: View {
                         .opacity(showToast ? 1 : 0)
                         .frame(maxHeight: .infinity, alignment: .bottom)
                 }
-        }
-
+        }.toolbar(.hidden, for: .navigationBar)
     }
+    
     
     func checkAllFieldsAreExpected() {
         if userName.isEmpty {

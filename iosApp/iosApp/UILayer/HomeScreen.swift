@@ -7,20 +7,24 @@
 
 import Foundation
 import SwiftUI
+import Shared
 
 struct HomeScreen: View {
 
-
+    private let sharedPref = SharedModule().sharedPref
+    
+    init() {
+        sharedPref.save(key: isLoggedIn, value: true)
+    }
     
     var body : some View {
         ScrollView {
             VStack {
-                
-                
+                Text("Home Screen")
                 
             }
             
-        }
+        }.toolbar(.hidden, for: .navigationBar)
     
     }
     
