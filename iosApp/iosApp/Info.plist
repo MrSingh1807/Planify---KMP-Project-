@@ -4,6 +4,8 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Island Regular.ttf</string>
+		<string>AL SemiBold.ttf</string>
 		<string>Caros.otf</string>
 		<string>Caros Bold.otf</string>
 		<string>Caros Medium.otf</string>
