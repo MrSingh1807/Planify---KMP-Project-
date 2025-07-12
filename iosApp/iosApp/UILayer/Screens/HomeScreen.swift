@@ -9,6 +9,9 @@ import Shared
 
 struct HomeScreen: View {
     
+    @State private var showBottomOptions = true
+
+    
     private let sharedPref = SharedModule().sharedPref
     
     private let dateManager = DateManager()
@@ -26,7 +29,6 @@ struct HomeScreen: View {
     var body : some View {
         
         ZStack {
-            
             ScrollView {
                 VStack {
                     Text(dateManager.today())
@@ -35,11 +37,8 @@ struct HomeScreen: View {
                         .padding(.top, 16)
                     
                     Text(dateManager.dateString())
-                        .font(.custom("AL Bold", size: 48))
+                        .font(.custom("AL SemiBold", size: 48))
                         .padding(.top, 16)
-                    
-                    
-                    
                     
                     VStack {
                         
@@ -124,7 +123,6 @@ struct HomeScreen: View {
                             .fill(Color.white)
                     ).padding(.top, 16)     // V - Stack - Calender Card
                     
-                    
                     HStack {
                         VStack {
                             Text("Completed \nTask")
@@ -208,9 +206,12 @@ struct HomeScreen: View {
                     .background(Color.white),
                 alignment: .bottom
             )
-        
-        
     }
+//    .bottomSheet(isPresented: $showBottomOptions) {
+//        HomeOptionsBottomSheet()
+//            .presentationDetents([.medium, .large]) // Add this for bottom sheet behavior
+//            .presentationDragIndicator(.visible)   // Optional: show drag indicator
+//    }
     
 }
 

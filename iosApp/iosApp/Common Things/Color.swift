@@ -29,3 +29,16 @@ extension Color {
         }
     }
 }
+
+extension Color {
+    static func rgba(_ red: Int, _ green: Int, _ blue: Int, _ alpha: Double) -> Color {
+        return Color(
+            red: Double(red) / 255.0,
+            green: Double(green) / 255.0,
+            blue: Double(blue) / 255.0,
+            opacity: alpha
+        )
+    }
+}
+
+
