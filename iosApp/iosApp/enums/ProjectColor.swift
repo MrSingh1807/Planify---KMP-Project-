@@ -15,6 +15,7 @@ enum ProjectColor : String, CaseIterable, Identifiable {
     
     
     case background1
+    case textGrayColor1
     case selectedTextColor
     case unSelectedTextColor
     
@@ -24,6 +25,7 @@ enum ProjectColor : String, CaseIterable, Identifiable {
         case .background1:  return Color(hex: "F4F6F6")
         case .selectedTextColor:  return Color.black
         case .unSelectedTextColor:  return Color(hex: "7E8491")
+        case .textGrayColor1:  return Color(hex: "797C80")
             
         }
     }

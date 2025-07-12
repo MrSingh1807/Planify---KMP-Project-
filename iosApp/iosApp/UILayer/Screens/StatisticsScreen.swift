@@ -9,6 +9,8 @@ import SwiftUI
 
 struct StatisticsScreen: View {
     
+    @EnvironmentObject private var navStack: NavStack
+    
     let options = ["Weekly", "Monthly", "Yearly", "All"]
     
     @State var selectedState = 0
@@ -18,6 +20,7 @@ struct StatisticsScreen: View {
             HStack {
                 Button {
                     print("Back Button Pressed")
+                    navStack.popBackStack()
                 } label: {
                     Image(systemName: "arrow.backward")
                         .tint(Color(hex: "7E8491"))
@@ -176,6 +179,7 @@ struct StatisticsScreen: View {
             }.frame(maxWidth: .infinity,alignment: .topLeading)
             
         }.frame(maxWidth: .infinity,maxHeight: .infinity, alignment: .topLeading)
+            .toolbar(.hidden, for: .navigationBar)
     }
 }
 

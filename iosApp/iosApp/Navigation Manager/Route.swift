@@ -13,6 +13,8 @@ enum Route: Hashable {
     case signup
     case home
     case profile(userID: String)
+    case statistics
+    case task_group
     case settings
     // Add more as needed
 }

@@ -32,7 +32,9 @@ struct iOSApp: App {
               case .signup: SignUpScreen()
               case .home: HomeScreen()
               case .profile(let id): ProfileScreen(userID: id)
-              case .settings: SettingsScreen()
+          case .task_group : TasksScreen()
+              case .settings: SettingScreen()
+          case .statistics: StatisticsScreen()
           }
       }
     

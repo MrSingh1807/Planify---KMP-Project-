@@ -9,8 +9,9 @@ import Shared
 
 struct HomeScreen: View {
     
-    @State private var showBottomOptions = true
+    @EnvironmentObject private var navStack: NavStack
 
+    @State private var showBottomOptions = false
     
     private let sharedPref = SharedModule().sharedPref
     
@@ -19,6 +20,8 @@ struct HomeScreen: View {
     
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
     let weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    
+    @State var selectedDate: Day? =  nil
     
     
     init() {
@@ -30,18 +33,17 @@ struct HomeScreen: View {
         
         ZStack {
             ScrollView {
-                VStack {
+                VStack (alignment: HorizontalAlignment.leading){
                     Text(dateManager.today())
                         .foregroundColor(Color(hex: "F87777"))
-                        .font(.custom("Island Regular", size: 48))
-                        .padding(.top, 16)
+                        .font(.custom(Caros.medium.font, size: 28))
+                        .padding(.top, 24)
                     
                     Text(dateManager.dateString())
-                        .font(.custom("AL SemiBold", size: 48))
+                        .font(.custom(Caros.bold.font, size: 32))
                         .padding(.top, 16)
                     
                     VStack {
-                        
                         HStack{
                             // ‑‑ Previous month
                             Button(action: viewModel.goToPreviousMonth) {
@@ -53,7 +55,6 @@ struct HomeScreen: View {
                             .accessibilityLabel(Text("Previous Month"))
                             
                             Spacer()
-                            
                             
                             Text(viewModel.monthYearString())
                                 .font(.custom("Caros Bold", size: 24))
@@ -91,21 +92,30 @@ struct HomeScreen: View {
                                 let inMonth     = day.isInCurrentMonth
                                 
                                 
+                                var isSameDay: Bool {
+                                    guard let selected = selectedDate else { return false }
+                                    return Calendar.current.isDate(selected.date, inSameDayAs: day.date)
+                                }
+                                
                                 Button {
                                     // 💡 Handle the tap here
                                     print("\(dayNumber) is Clicked")
-                                    // viewModel.didSelect(date: day.date)
+                                    selectedDate = day
+                                    
+//                                     viewModel.didSelect(date: day.date)
                                 } label: {
                                     Text(isSelectable ? "\(dayNumber)" : "")
                                         .font(.custom(isToday ? "Caros Bold" : "Caros Medium", size: 14))
                                         .frame(maxWidth: .infinity, minHeight: 40)
                                     // background rules
                                         .background(
-                                            isToday && inMonth    ? Color.blue.opacity(0.2) :
+                                            isSameDay && inMonth ? Color.red :
+                                            isToday && inMonth  ? Color.blue.opacity(0.2) :
                                                 isWeekend && inMonth ? Color.red.opacity(0.1) :
                                                 Color.clear
                                         )
                                         .foregroundColor(
+                                            isSameDay ? .white :
                                             isWeekend && inMonth ? .red : .primary
                                         )
                                     
@@ -155,30 +165,30 @@ struct HomeScreen: View {
                                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                                     .fill(Color(hex: "C4A49F"))
                             )
-                    }.padding(.top, 8)      // HStack  -  Tasks Card
+                    }.padding(.top, 24)      // HStack  -  Tasks Card
                 }.padding(.top, 50).padding(.bottom, 16)    // Scroll_Bar - VStack
                     .padding(.horizontal, 16)
                     .  frame(maxWidth: .infinity, maxHeight:.infinity, alignment: .leading)
-                  
+                
             }   // inner - Scroll Bar
             
             
-          
-        
+            
+            
             
         }.ignoresSafeArea()     // Z-Stack - Top Level
             .background(Color(hex: "FAF7F2"))
             .toolbar(.hidden, for: .navigationBar)
             .overlay(
                 HStack(alignment: VerticalAlignment.center) {
-                    Button(action: { }) {
+                    Button(action: { showBottomOptions = true }) {
                         Image(systemName: "line.3.horizontal")
                             .font(.title3)
                             .tint(Color(hex: "7E8491"))
                         
                     }.padding(.leading, 18)
                         .frame(width: 48, height: 48)
-                        
+                    
                     Button(action: { }) {
                         Image(systemName: "magnifyingglass")
                             .font(.title3)
@@ -205,13 +215,24 @@ struct HomeScreen: View {
                 }.padding(.top, 10)
                     .background(Color.white),
                 alignment: .bottom
-            )
+            ).sheet(isPresented:  $showBottomOptions) {
+                HomeOptionsBottomSheet() { section in
+                    showBottomOptions = false
+                    
+                    switch section {
+                    case .statistics:
+                        navStack.navigate(.statistics)
+                    case .task:
+                        navStack.navigate(.task_group)
+                    case .settings:
+                        navStack.navigate(.settings)
+                    }
+                    
+                }
+                    .presentationDetents([.medium, .large]) // Add this for bottom sheet behavior
+                    .presentationDragIndicator(.visible)
+            }
     }
-//    .bottomSheet(isPresented: $showBottomOptions) {
-//        HomeOptionsBottomSheet()
-//            .presentationDetents([.medium, .large]) // Add this for bottom sheet behavior
-//            .presentationDragIndicator(.visible)   // Optional: show drag indicator
-//    }
     
 }
 

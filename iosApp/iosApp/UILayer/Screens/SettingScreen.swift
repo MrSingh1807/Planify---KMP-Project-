@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct SettingScreen: View {
+    
+    @EnvironmentObject private var navStack: NavStack
+
     var body: some View {
         VStack {
             HStack {
                 Button {
                     print("Back Button Pressed")
+                    navStack.popBackStack()
                 } label: {
                     Image(systemName: "arrow.backward")
                         .tint(Color(hex: "7E8491"))
@@ -109,7 +113,7 @@ struct SettingScreen: View {
                     
                 }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
-        }
+        }.toolbar(.hidden, for: .navigationBar)
     }
 }
 

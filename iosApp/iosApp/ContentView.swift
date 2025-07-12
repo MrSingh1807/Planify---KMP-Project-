@@ -4,9 +4,9 @@ import Shared
 struct ContentView: View {
     
     private let sharedPref = SharedModule().sharedPref
+    
     @EnvironmentObject private var nav: NavStack
-
-        
+    
     var body: some View {
         
         VStack {
@@ -28,25 +28,26 @@ struct ContentView: View {
                 } else {
                     nav.navigate(.onboard)
                 }
-//                
             }
             
         }
     }
     
     
-    @ViewBuilder
-      func screen(for route: Route) -> some View {
-          switch route {
-//              case .splash: ContentView()
-              case .onboard: OnboardScreen()
-              case .login: LoginScreen()
-              case .signup: SignUpScreen()
-              case .home: HomeScreen()
-              case .profile(let id): ProfileScreen(userID: id)
-              case .settings: SettingsScreen()
-          }
-      }
+//    @ViewBuilder
+//    func screen(for route: Route) -> some View {
+//        switch route {
+//            //              case .splash: ContentView()
+//        case .onboard: OnboardScreen()
+//        case .login: LoginScreen()
+//        case .signup: SignUpScreen()
+//        case .home: HomeScreen()
+//        case .profile(let id): ProfileScreen(userID: id)
+//        case .statistics: StatisticsScreen()
+//        case .task_group: TasksScreen()
+//        case .settings: SettingScreen()
+//        }
+//    }
 }
 
 struct ContentView_Previews: PreviewProvider {
