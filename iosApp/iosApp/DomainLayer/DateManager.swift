@@ -27,4 +27,11 @@ struct DateManager {
         return target < today
     }
     
+    func formatTimestampToDateString(format : String , _ timestamp: TimeInterval,) -> String {
+        let date = Date(timeIntervalSince1970: timestamp / 1000) // Convert from milliseconds to seconds
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.string(from: date)
+    }
+    
 }

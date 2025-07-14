@@ -8,5 +8,5 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
 
     id("com.google.devtools.ksp") version "2.1.21-2.0.1" apply false
-    id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-43"
+//    id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-43"
 }
