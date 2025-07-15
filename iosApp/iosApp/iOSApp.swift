@@ -24,19 +24,21 @@ struct iOSApp: App {
     }
     
     @ViewBuilder
-      func screen(for route: Route) -> some View {
-          switch route {
-//              case .splash: ContentView()
-              case .onboard: OnboardScreen()
-              case .login: LoginScreen()
-              case .signup: SignUpScreen()
-              case .home: HomeScreen()
-              case .profile(let id): ProfileScreen(userID: id)
-          case .task_group : TasksScreen()
-              case .settings: SettingScreen()
-          case .statistics: StatisticsScreen()
-          }
-      }
+    func screen(for route: Route) -> some View {
+        switch route {
+            //              case .splash: ContentView()
+        case .onboard: OnboardScreen()
+        case .login: LoginScreen()
+        case .signup: SignUpScreen()
+        case .home: HomeScreen()
+        case .profile(let id): ProfileScreen(userID: id)
+        case .task_group : TasksScreen()
+        case .settings: SettingScreen()
+        case .statistics: StatisticsScreen()
+        case .create_task: AddTaskScreen()
+        case .choose_category: ChooseCategoryScreen()
+        }
+    }
     
     
 }

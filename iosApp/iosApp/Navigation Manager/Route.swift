@@ -16,5 +16,7 @@ enum Route: Hashable {
     case statistics
     case task_group
     case settings
+    case create_task
+    case choose_category
     // Add more as needed
 }

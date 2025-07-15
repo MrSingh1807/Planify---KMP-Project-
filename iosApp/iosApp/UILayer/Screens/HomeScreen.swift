@@ -200,7 +200,9 @@ struct HomeScreen: View {
                     
                     Spacer()
                     
-                    Button(action: { }) {
+                    Button(action: {
+                        navStack.navigate(.choose_category)
+                    }) {
                         Image(systemName: "plus")
                             .font(.title3)
                             .tint(Color.white)

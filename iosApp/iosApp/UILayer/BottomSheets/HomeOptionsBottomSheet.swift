@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeOptionsBottomSheet: View {
-    
+    @EnvironmentObject private var navStack: NavStack
     var onSectionTap: (HomeSection) -> Void = {_ in }
 
     var body: some View {
@@ -67,6 +67,7 @@ struct HomeOptionsBottomSheet: View {
                 
                 Button(action: {
                     print("New List tapped")// Perform action here
+                    navStack.navigate(.choose_category)
                 }) {
                     HStack {
                         Image(systemName: "plus")

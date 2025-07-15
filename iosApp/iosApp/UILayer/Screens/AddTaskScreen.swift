@@ -40,7 +40,7 @@ struct AddTaskScreen: View {
                 
                 Spacer()
                 
-            }.padding(.horizontal, 12)
+            }
             
             ScrollView {
                 Divider()
@@ -87,7 +87,7 @@ struct AddTaskScreen: View {
                         
                         Image("ic_calender").padding(.trailing, 12)
                             .onTapGesture {
-                               
+                                showCalendar = true
                             }
                         
                     }
@@ -191,7 +191,7 @@ struct AddTaskScreen: View {
                     
                     TextField("Type here!\n\n", text: $description)
                         .font(.custom(Caros.medium.font, size: 14))
-                        .frame(minHeight: lineHeight(for: 5), maxHeight: lineHeight(for: 8))
+//                        .frame(minHeight: lineHeight(for: 5), maxHeight: lineHeight(for: 8))
                         .padding(8)
                         .padding(.leading, 8)
                         .overlay(
