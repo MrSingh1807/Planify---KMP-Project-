@@ -189,7 +189,9 @@ struct HomeScreen: View {
                     }.padding(.leading, 18)
                         .frame(width: 48, height: 48)
                     
-                    Button(action: { }) {
+                    Button(action: {
+                        viewModel.getToDoCount()
+                    }) {
                         Image(systemName: "magnifyingglass")
                             .font(.title3)
                             .tint(Color(hex: "7E8491"))

@@ -7,6 +7,7 @@
 
 
 import SwiftUI
+import Shared
 
 struct Day: Identifiable {
     let id = UUID()
@@ -19,9 +20,21 @@ class CalendarViewModel: ObservableObject {
     @Published var currentMonth: Date = Date()
 
     private let calendar = Calendar.current
+    private let sp = SharedModule().sharedPref
+    private let roomUseCase = SharedModule().roomUseCase
 
     init() {
         generateDays(for: currentMonth)
+    }
+    
+    func getToDoCount() {
+        sp.save(key: "Count", value____: "10")
+        let count = sp.getString(key: "Count", defaultValue: "")
+    
+        
+        let count2 = roomUseCase.getCount()
+//
+        print("Todo Count : - \(count) : \(count2)")
     }
 
     func generateDays(for date: Date) {

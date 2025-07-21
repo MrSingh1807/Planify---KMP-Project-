@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    id("com.google.devtools.ksp")
 }
 
 kotlin {
@@ -22,6 +23,8 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "Shared"
             isStatic = true
+            // Required when using NativeSQLiteDriver
+            linkerOpts.add("-lsqlite3")
         }
     }
 
@@ -56,9 +59,9 @@ kotlin {
 //            implementation(libs.ktor.client.json)
 
 
-//            implementation(libs.androidx.room.runtime)
-//            implementation(libs.androidx.sqlite.bundled)
-//            ksp { libs.androidx.room.compiler }
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
+            ksp { libs.androidx.room.compiler }
 
             // put your Multiplatform dependencies here
         }
@@ -81,6 +84,7 @@ android {
 }
 
 
+//
 //room {
 //    schemaDirectory("$projectDir/schemas")
 //}
